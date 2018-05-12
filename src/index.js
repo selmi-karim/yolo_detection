@@ -4,18 +4,20 @@ import yolo, { downloadModel } from 'tfjs-yolo-tiny';
 var firebase = require('firebase');
 
 firebase.initializeApp({
-    databaseURL: 'https://hovereye-ee890.firebaseio.com',
+    databaseURL: 'https://dubdoub-1.firebaseio.com',
 });
 
 //send favoris data to in firebase
 const writeData = (object) =>{
-
     firebase.database().ref('/objectDetection').push({
         object:object,
 	lat: "35.8284534",
 	long:"10.5480139" 
     });
 } 
+
+// remove all data 
+firebase.database().ref('/objectDetection').remove();
 
 
 
