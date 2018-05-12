@@ -12,11 +12,17 @@ const writeData = (object) =>{
     firebase.database().ref('/objectDetection').push({
         object:object,
 	lat: "35.8284534",
-	long:"10.5480139" 
+	long:"10.5480139"
     });
-} 
+}
 
-// remove all data 
+const sendDataToSnopi = (object) =>{
+    firebase.database().ref('/snopi').push({
+        object: object
+    });
+}
+
+// remove all data
 firebase.database().ref('/objectDetection').remove();
 
 
@@ -84,7 +90,15 @@ function drawRect(x, y, w, h, text = '', color = 'red') {
   label.classList.add('label');
   label.innerText = text;
   rect.appendChild(label);
-  writeData(text);	
+
+  writeData(text);
+  if (text.split(" ")[0] !== "person"){
+    var res = "";
+    for(var i=0;i<text.split(' ').length-2;i++){
+      res+=text.split(' ')[i]+" ";
+    };
+    sendDataToSnopi(res);
+  }
 
   webcamElem.appendChild(rect);
 }
