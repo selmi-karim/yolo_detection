@@ -1,31 +1,6 @@
 
 import * as tf from '@tensorflow/tfjs';
 import yolo, { downloadModel } from 'tfjs-yolo-tiny';
-var firebase = require('firebase');
-
-firebase.initializeApp({
-    databaseURL: 'https://dubdoub-1.firebaseio.com',
-});
-
-//send favoris data to in firebase
-const writeData = (object) =>{
-    firebase.database().ref('/objectDetection').push({
-        object:object,
-	lat: "35.8284534",
-	long:"10.5480139"
-    });
-}
-
-const sendDataToSnopi = (object) =>{
-    firebase.database().ref('/snopi').push({
-        object: object
-    });
-}
-
-// remove all data
-firebase.database().ref('/objectDetection').remove();
-
-
 
 
 import { Webcam } from './webcam';
@@ -97,7 +72,6 @@ function drawRect(x, y, w, h, text = '', color = 'red') {
     for(var i=0;i<text.split(' ').length-2;i++){
       res+=text.split(' ')[i]+" ";
     };
-    sendDataToSnopi(res);
   }
 
   webcamElem.appendChild(rect);
