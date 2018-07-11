@@ -11,7 +11,8 @@ load()
 async function load() {
     alert('load start')
     try {
-      const model = await tf.loadModel('localstorage://model_destination.model');
+      const model = await tf.loadModel(
+      'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/model.json');
       alert(model)	 
       return model;
     } catch (err) {
