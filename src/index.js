@@ -5,19 +5,29 @@ import yolo, { downloadModel } from 'tfjs-yolo-tiny';
 
 import { Webcam } from './webcam';
 
-let model;
 const webcam = new Webcam(document.getElementById('webcam'));
+load()
+
+async function load() {
+    alert('load start')
+    try {
+      const model = await tf.loadModel('localstorage://model_destination.model');
+      alert(model)	 
+      return model;
+    } catch (err) {
+      console.error(err);
+    }
+}
 
 (async function main() {
   try {
     ga();
-    model = await downloadModel();
 
     alert("Just a heads up! We'll ask to access your webcam so that we can " +
       "detect objects in semi-real-time. \n\nDon't worry, we aren't sending " +
       "any of your images to a remote server, all the ML is being done " +
       "locally on device, and you can check out our source code on Github.");
-
+	
     await webcam.setup();
 
     doneLoading();
